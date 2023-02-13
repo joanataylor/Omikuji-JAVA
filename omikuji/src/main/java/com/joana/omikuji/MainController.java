@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MainController {
@@ -21,14 +22,19 @@ public class MainController {
   }
 
   @RequestMapping(value = "/madlibs", method = RequestMethod.POST)
-  public String login(
+  public String form(
       @RequestParam(value = "number") String number,
       @RequestParam(value = "city") String city,
       @RequestParam(value = "person") String person,
       @RequestParam(value = "hobby") String hobby,
       @RequestParam(value = "living") String living,
       @RequestParam(value = "nice") String nice,
-      HttpSession session) {
+      HttpSession session,
+      RedirectAttributes redirectAttributes) {
+        if(city.length()<3) {
+          redirectAttributes.addFlashAttribute("cityerror", "The city must be 3 or more");
+          return "redirect:/";
+        }
     session.setAttribute("number", number);
     session.setAttribute("city", city);
     session.setAttribute("person", person);
@@ -43,4 +49,10 @@ public class MainController {
     return "omikuji.jsp";
   }
 
-}
+  // @RequestMapping("/createError")
+	// public String flashMessages(RedirectAttributes redirectAttributes) {
+	// 	redirectAttributes.addFlashAttribute("error", "A test error!");
+	// 	return "redirect:/";
+	// }
+  }
+
