@@ -28,7 +28,7 @@ pageEncoding="UTF-8"%>
             <div class="card-body">
 
               <div class="card-body" style="background-color:#63C5DA">
-                <p>In <%String number = (String)session.getAttribute("number");out.print(number);%>
+                <p>In <c:out value="${number}"></c:out>
                 years, you will live in <%String city = (String)session.getAttribute("city");out.print(city);%> with 
                 <%String name = (String)session.getAttribute("name");out.print(name);%> as your roommate, 
                 <%String hobby = (String)session.getAttribute("hobby");out.print(hobby);%> for a living. The next time you see a 
